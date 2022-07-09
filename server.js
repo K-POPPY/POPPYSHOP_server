@@ -1,7 +1,8 @@
 // 라우팅은 애플리케이션 엔드 포인트(URI)의 정의, 그리고 URI가 클라이언트 요청에 응답하는 방식
-const express = require("express");
-const cors = require('cors');
-const app = express();
+const express = require("express"); // express 불러오기
+const cors = require('cors'); // cors 불러오기
+const app = express(); // 불러온 express 실생
+const models = require('./models'); // ./models의 함수들을 불러온다.
 const port = 8080;
 
 //상수 app에
@@ -110,7 +111,20 @@ app.post('/products', (req, res) => {
 });
 
 app.listen(port, () => {
-    console.log("뽀삐샵 서버 실행중");
+    console.log("뽀삐샵 서버가 구동되고 있습니다.");
+	// 데이터베이스와 동기화 하는 함수 작성
+    models.sequelize
+	// .sync() 안에 작성한 내용을 db와 동기화 시킬것이다
+        .sync()
+        .then(() => {
+            console.log('✓ DB 연결 성공');
+        })
+        .catch(function (err) {
+            console.error(err);
+            console.log('✗ DB 연결 에러');
+			// 에러발생시 서버프로세스 종료
+            process.exit();
+        });
 });
 
 // get 방식
