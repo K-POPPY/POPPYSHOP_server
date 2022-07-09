@@ -99,3 +99,7 @@ const server = http.createServer(function (req, res) {
 // 서버를 요청 대기 상태로 만든다
 server.listen(port, hostname);
 console.log("poppy-shop server on");
+
+// get 방식
+// 터미널에 node index.js -> 터미널에 poppy-shop server on 출력
+// 웹주소 127.0.0.1:8080 -> 브라우저에  상수 products의 내용 출력
